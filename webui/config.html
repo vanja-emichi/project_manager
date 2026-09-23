@@ -1,0 +1,50 @@
+<html>
+<head>
+  <title>Project Manager settings</title>
+  <script type="module">
+    import { store } from "/components/plugins/plugin-settings-store.js";
+    import { store as projectManager } from "/plugins/project_manager/webui/project-manager-store.js";
+  </script>
+</head>
+<body>
+  <div x-data>
+    <template x-if="$store.pluginSettingsPrototype && $store.projectManager">
+      <div class="pm-settings" x-init="$store.projectManager.loadPresets()">
+        <label class="pm-field">Instructions for the project manager
+          <textarea rows="7" maxlength="16000" x-model="config.instructions"
+            placeholder="How should the project manager help with this project?"></textarea>
+        </label>
+        <label class="pm-creation">
+          <span>Allow the project manager to create new threads</span>
+          <span class="toggle"><input type="checkbox" role="switch" x-model="config.allow_thread_creation"><span class="toggler"></span></span>
+        </label>
+        <label class="pm-field">Agent profile for the project manager
+          <select x-model="config.agent_profile">
+            <option value="">Keep the chat's current profile</option>
+            <template x-for="profile in context.agentProfiles" :key="profile.key">
+              <option :value="profile.key" x-text="profile.label"></option>
+            </template>
+          </select>
+        </label>
+        <label class="pm-field">Model preset for the project manager
+          <select x-model="config.model_preset">
+            <option value="">Keep the chat's current preset</option>
+            <template x-for="preset in $store.projectManager.presets" :key="preset">
+              <option :value="preset" x-text="preset"></option>
+            </template>
+          </select>
+        </label>
+        <p class="pm-hint">Instructions apply on the next message. Profile and preset choices apply when the project chat is opened while idle. New threads use the project's normal defaults.</p>
+      </div>
+    </template>
+  </div>
+  <style>
+    .pm-settings { display: grid; gap: var(--spacing-md); }
+    .pm-field { display: grid; gap: var(--spacing-xs); }
+    .pm-field textarea, .pm-field select { width: 100%; box-sizing: border-box; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); background: var(--color-panel); color: var(--color-text); font: inherit; }
+    .pm-field textarea { resize: vertical; }
+    .pm-creation { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-sm); }
+    .pm-hint { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-small); }
+  </style>
+</body>
+</html>

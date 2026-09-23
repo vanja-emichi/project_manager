@@ -1,0 +1,14 @@
+<html>
+<head><script type="module" src="/plugins/project_manager/webui/project-manager-store.js"></script></head>
+<body>
+  <div x-data style="display: none">
+    <template x-if="$store.projectManager && $store.sidebarFolders">
+      <button type="button" class="dropdown-item" x-move-to-end="[data-folder-menu='project']"
+        x-show="$store.sidebarFolders.menuProject" :disabled="$store.projectManager.busy"
+        @click.stop="$store.projectManager.open()">
+        <x-icon name="forum"></x-icon>Chat with project
+      </button>
+    </template>
+  </div>
+</body>
+</html>

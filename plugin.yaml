@@ -1,0 +1,7 @@
+name: project_manager
+title: Project Manager
+description: Chat with a project using its files, instructions, and linked chat threads.
+version: 0.2.0
+settings_sections: [agent]
+per_project_config: true
+per_agent_config: false
