@@ -4,7 +4,8 @@ from helpers import plugins, projects
 
 
 class ProjectManagerPrompt(Extension):
-    async def execute(self, system_prompt: list[str] = [], loop_data: LoopData = LoopData(), **kwargs):
+    async def execute(self, system_prompt: list[str] | None = None, loop_data: LoopData = LoopData(), **kwargs):
+        system_prompt = system_prompt if system_prompt is not None else []
         if not self.agent:
             return
         project = self.agent.context.get_data("project_manager_project")
